@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Us - CampusHub</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+
+    header.navbar {
+      background: #111;
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      user-select: none;
+      color: white;
+      cursor: pointer;
+    }
+
+    .logo span {
+      color: #00ffcc;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: #ddd;
+      font-weight: 600;
+      transition: color 0.3s;
+    }
+
+    nav a:hover {
+      color: #00ffcc;
+    }
+
+    .btn-login,
+    .btn-join {
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+    }
+
+    .btn-join {
+      background: #00ffcc;
+      color: #000;
+      border-radius: 5px;
+      font-weight: 600;
+    }
+
+    
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #00ffcc;
+      border-radius: 2px;
+    }
+
+    
+    nav.mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: absolute;
+      top: 56px;
+      right: 2rem;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0,255,204,0.4);
+      z-index: 20;
+    }
+    nav.mobile-nav a {
+      padding: 0.5rem 0;
+      color: #ddd;
+      font-weight: 600;
+    }
+    nav.mobile-nav a:hover {
+      color: #00ffcc;
+    }
+
+    .about-section {
+      max-width: 900px;
+      margin: 3rem auto;
+      padding: 2rem;
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 16px;
+      box-shadow: 0 0 30px rgba(0, 255, 204, 0.1);
+      backdrop-filter: blur(10px);
+    }
+
+    .about-section h1 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2.5rem;
+      background: linear-gradient(90deg, #00ffcc, #00b894);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .about-section p {
+      font-size: 1.1rem;
+      line-height: 1.8;
+      color: #ddd;
+      text-align: justify;
+    }
+
+    @media (max-width: 600px) {
+      .about-section {
+        padding: 1.5rem;
+        margin: 1.5rem;
+      }
+
+      .about-section h1 {
+        font-size: 2rem;
+      }
+
+      
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav.desktop-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  
+  <header class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">Campus<span>Hub</span></div>
+
+    <nav class="desktop-nav" id="desktop-nav">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="desktop-auth-links"></span>
+    </nav>
+
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation menu">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="mobile-auth-links"></span>
+    </nav>
+  </header>
+
+  
+  <section class="about-section">
+    <h1>About CampusHub</h1>
+    <p>
+      CampusHub is a student-to-student marketplace empowering college students to buy, sell, and share services directly within their academic ecosystem.
+      <br><br>
+      Whether you're a coder building websites, a designer creating posters, a video editor, or someone who helps with assignments, CampusHub connects you with peers who need your skills.
+      <br><br>
+      We're reimagining college freelancing — one task at a time — and transforming how students collaborate, earn, and grow. All in one place. All by students. For students.
+    </p>
+  </section>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileNav.style.display === 'flex') {
+        mobileNav.style.display = 'none';
+      } else {
+        mobileNav.style.display = 'flex';
+      }
+    });
+
+    
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.style.display = 'none';
+      }
+    });
+  </script>
+
+  
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBl5qGCY-ERPYDaJoFFWikePF-JdMBq_g8",
+    authDomain: "campushub-aloks.firebaseapp.com",
+    projectId: "campushub-aloks",
+    storageBucket: "campushub-aloks.firebasestorage.app",
+    messagingSenderId: "559727198762",
+    appId: "1:559727198762:web:53ba952ad4d3397518b953",
+    measurementId: "G-L2JN36M5DD"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<script>
+  // Cache the auth links containers
+  const desktopAuth = document.getElementById('desktop-auth-links');
+  const mobileAuth = document.getElementById('mobile-auth-links');
+
+  // Function to render navbar auth links based on user
+  function renderAuthLinks(user) {
+    if (user) {
+      const displayName = user.displayName || user.email || "User";
+
+      const signedInHTML = `
+        <span style="color:#00ffcc; font-weight:600; margin-right: 1rem;">Hi ${displayName}</span>
+        <a href="dashboard.html" style="font-weight:600; margin-right: 1rem; color:#ddd; text-decoration:none;">Dashboard</a>
+        <a href="#" id="signout-link" style="color:#ff4b4b; font-weight:600; cursor:pointer; text-decoration:none;">Sign Out</a>
+      `;
+
+      desktopAuth.innerHTML = signedInHTML;
+      mobileAuth.innerHTML = signedInHTML;
+
+      document.getElementById('signout-link').addEventListener('click', e => {
+        e.preventDefault();
+        auth.signOut().then(() => {
+          window.location.href = 'signin.html'; // Redirect after sign out
+        });
+      });
+
+    } else {
+      // Not signed in - show Sign In and Join buttons
+      const signedOutHTML = `
+        <a href="signin.html" class="btn-login">Sign In</a>
+        <a href="signup.html" class="btn-join">Join</a>
+      `;
+
+      desktopAuth.innerHTML = signedOutHTML;
+      mobileAuth.innerHTML = signedOutHTML;
+    }
+  }
+
+  // Listen for auth state changes
+  auth.onAuthStateChanged(user => {
+    renderAuthLinks(user);
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Become a Seller - CampusHub</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #111;
+      color: white;
+    }
+
+    .navbar {
+      background: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 10;
+    }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: #111;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .logo span {
+      color: #00b894;
+    }
+
+    nav.desktop-nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    nav.desktop-nav a {
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .btn-join {
+      background: #00b894;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    /* Hamburger menu toggle button */
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #00b894;
+      border-radius: 2px;
+    }
+
+    /* Mobile nav hidden by default */
+    nav.mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #fff;
+      position: absolute;
+      top: 56px;
+      right: 2rem;
+      padding: 1rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 0 15px rgba(0, 184, 148, 0.4);
+      z-index: 20;
+    }
+    nav.mobile-nav a {
+      padding: 0.5rem 0;
+      color: #333;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    nav.mobile-nav a:hover {
+      color: #00b894;
+    }
+
+    .seller-content {
+      max-width: 800px;
+      margin: 4rem auto;
+      padding: 2rem;
+      background: #1c1c1c;
+      border-radius: 12px;
+    }
+
+    .seller-content h1 {
+      color: #00b894;
+      margin-bottom: 1rem;
+    }
+
+    .seller-content p {
+      margin-bottom: 1.5rem;
+      line-height: 1.6;
+    }
+
+    .seller-content button {
+      background: #00b894;
+      color: white;
+      border: none;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 600px) {
+      .seller-content {
+        padding: 1.5rem;
+        margin: 2rem 1rem;
+      }
+
+      /* Show hamburger menu */
+      .menu-toggle {
+        display: flex;
+      }
+
+      /* Hide desktop nav */
+      nav.desktop-nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">Campus<span>Hub</span></div>
+
+    <nav class="desktop-nav" id="desktop-nav">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="desktop-auth-links"></span>
+    </nav>
+
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation menu">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="mobile-auth-links"></span>
+    </nav>
+  </header>
+
+  <section class="seller-content">
+    <h1>Become a Seller on CampusHub</h1>
+    <p>Turn your skills into income by offering services to fellow students. Whether you're great at graphic design, coding, editing, tutoring or anything else – CampusHub is your marketplace.</p>
+    <p>All you need to do is sign up, create your service listing, and start getting hired by students looking for what you offer.</p>
+    <button onclick="window.location.href='signup.html'">Start Selling</button>
+  </section>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    menuToggle.addEventListener('click', () => {
+      if (mobileNav.style.display === 'flex') {
+        mobileNav.style.display = 'none';
+      } else {
+        mobileNav.style.display = 'flex';
+      }
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!menuToggle.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.style.display = 'none';
+      }
+    });
+  </script>
+
+  <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBl5qGCY-ERPYDaJoFFWikePF-JdMBq_g8",
+    authDomain: "campushub-aloks.firebaseapp.com",
+    projectId: "campushub-aloks",
+    storageBucket: "campushub-aloks.firebasestorage.app",
+    messagingSenderId: "559727198762",
+    appId: "1:559727198762:web:53ba952ad4d3397518b953",
+    measurementId: "G-L2JN36M5DD"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<script>
+  // Cache the auth links containers
+  const desktopAuth = document.getElementById('desktop-auth-links');
+  const mobileAuth = document.getElementById('mobile-auth-links');
+
+  // Function to render navbar auth links based on user
+  function renderAuthLinks(user) {
+    if (user) {
+      const displayName = user.displayName || user.email || "User";
+
+      const signedInHTML = `
+        <span style="color:#00ffcc; font-weight:600; margin-right: 1rem;">Hi ${displayName}</span>
+        <a href="dashboard.html" style="font-weight:600; margin-right: 1rem; color:#ddd; text-decoration:none;">Dashboard</a>
+        <a href="#" id="signout-link" style="color:#ff4b4b; font-weight:600; cursor:pointer; text-decoration:none;">Sign Out</a>
+      `;
+
+      desktopAuth.innerHTML = signedInHTML;
+      mobileAuth.innerHTML = signedInHTML;
+
+      document.getElementById('signout-link').addEventListener('click', e => {
+        e.preventDefault();
+        auth.signOut().then(() => {
+          window.location.href = 'signin.html'; // Redirect after sign out
+        });
+      });
+
+    } else {
+      // Not signed in - show Sign In and Join buttons
+      const signedOutHTML = `
+        <a href="signin.html" class="btn-login">Sign In</a>
+        <a href="signup.html" class="btn-join">Join</a>
+      `;
+
+      desktopAuth.innerHTML = signedOutHTML;
+      mobileAuth.innerHTML = signedOutHTML;
+    }
+  }
+
+  // Listen for auth state changes
+  auth.onAuthStateChanged(user => {
+    renderAuthLinks(user);
+  });
+</script>
+
+</body>
+</html>

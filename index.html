@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CampusHub – Student Marketplace</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link rel="stylesheet" href="styles/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    /* Base Styles */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+    }
+    .navbar {
+      background: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      flex-wrap: wrap;
+    }
+    .logo a {
+      text-decoration: none;
+      color: inherit;
+      font-size: 1.5rem;
+      font-weight: 800;
+    }
+    .logo span {
+      color: #00b894;
+    }
+    nav {
+      display: flex;
+      gap: 0.5rem;
+      align-items: center;
+    }
+    nav a {
+       text-decoration: none;
+       color: #333;
+       font-weight: 600;
+    }
+    .btn-login,
+    .btn-join {
+      padding: 0.5rem 1rem;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: background 0.3s, color 0.3s;
+    }
+    .btn-join {
+      background: #00b894;
+      color: white;
+      border-radius: 5px;
+    }
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      position: absolute;
+      right: 2rem;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #333;
+    }
+    .mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+      padding: 1rem;
+      background: white;
+      position: absolute;
+      top: 60px;
+      right: 0;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      z-index: 10;
+    }
+    .mobile-nav a {
+      text-decoration: none;
+      color: #333;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+      nav {
+        display: none !important;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+      .search-bar {
+        flex-direction: column;
+        width: 100%;
+        max-width: 100%;
+        padding: 0 1rem;
+      }
+      .search-bar input,
+      .search-bar button {
+        width: 100%;
+        margin-bottom: 0.5rem;
+        border-radius: 5px !important;
+      }
+      .category-grid {
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      }
+    }
+    .glow-text {
+      font-size: 3rem;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      animation: subtleGlow 3s ease-in-out infinite;
+    }
+
+    @keyframes subtleGlow {
+      0%, 100% {
+        text-shadow:
+          0 0 2px #ffffff,
+          0 0 4px #cccccc,
+          0 0 6px #bbbbbb;
+      }
+      50% {
+        text-shadow:
+          0 0 4px #ffffff,
+          0 0 6px #cccccc,
+          0 0 8px #bbbbbb;
+      }
+    }
+  </style>
+  <script>
+    function toggleMenu() {
+      const nav = document.getElementById('mobile-nav');
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
+  </script>
+</head>
+<body>
+    <canvas id="cursor-canvas"></canvas>
+    <script src="scripts/cursor.js"></script>
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo"><a href="index.html">Campus<span>Hub</span></a></div>
+    <div class="menu-toggle" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="desktop-nav" id="desktop-nav">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="desktop-auth-links"></span>
+    </nav>
+
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" role="button" tabindex="0">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav" aria-label="Mobile navigation menu">
+      <a href="about.html">About</a>
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <span id="mobile-auth-links"></span>
+    </nav>
+  </header>
+
+ <!-- Hero Section -->
+<section class="hero">
+  <h1 class="glow-text">Taking Campus Commerce Forward.</h1>
+  <p>Find affordable student services for everything</p>
+  <div class="search-bar">
+    <input type="text" placeholder="Search for any service..." />
+    <button aria-label="Search">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" viewBox="0 0 24 24">
+        <path d="M21.71 20.29l-3.387-3.387A8.928 8.928 0 0019 11a9 9 0 10-9 9 8.928 8.928 0 005.903-1.677l3.387 3.387a1 1 0 001.414-1.414zM11 18a7 7 0 117-7 7.008 7.008 0 01-7 7z"/>
+      </svg>
+    </button>
+  </div>
+  <div class="tags">
+    <button>Website Development</button>
+    <button>Video Editing</button>
+    <button>Poster Design</button>
+    <button>Assignment Help</button>
+  </div>
+</section>
+
+ <!-- Categories -->
+<section class="categories">
+  <h2>Popular Services</h2>
+  <div class="category-grid">
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/906/906175.png" alt="Website Development" />
+      <p>Website Development</p>
+    </div>
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2422/2422077.png" alt="Video Editing" />
+      <p>Video Editing</p>
+    </div>
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/3159/3159710.png" alt="Poster Design" />
+      <p>Poster Design</p>
+    </div>
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/5977/5977588.png" alt="SEO" />
+      <p>SEO</p>
+    </div>
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/1510/1510654.png" alt="Notes Sharing" />
+      <p>Notes Sharing</p>
+    </div>
+    <div class="category-card">
+      <img src="https://cdn-icons-png.flaticon.com/512/2972/2972306.png" alt="Assignment Help" />
+      <p>Assignment Help</p>
+    </div>
+  </div>
+</section>
+
+  <footer class="footer">
+    <p>&copy; 2025 CampusHub. Built by Alok Singh for Students.</p>
+  </footer>
+
+  <!-- Floating Chatbot Button -->
+<div id="chatbot-button" title="Chat with us" aria-label="Open chat">
+  <!-- SVG chat bubble icon -->
+  <svg viewBox="0 0 24 24" aria-hidden="true">
+    <path d="M2 2v20l4-4h16V2H2zm18 12H6.83L4 18.83V4h16v10z"></path>
+  </svg>
+</div>
+
+<!-- Chat Dialog -->
+<div id="robot-container" aria-hidden="true">
+  <svg id="robot" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="#007bff" width="80" height="80" aria-hidden="true">
+    <rect x="12" y="20" width="40" height="30" rx="6" ry="6" />
+    <circle cx="22" cy="30" r="4" fill="#fff"/>
+    <circle cx="42" cy="30" r="4" fill="#fff"/>
+    <rect x="28" y="44" width="8" height="6" rx="2" ry="2" fill="#0056b3"/>
+  </svg>
+  <div id="speech-bubble">Hi, need help?</div>
+</div>
+<div id="chatbot-container" aria-hidden="true">
+  <button id="open-chat" aria-label="Open chat with Gemini">Chat with Gemini</button>
+</div>
+
+<div id="chat-dialog" role="dialog" aria-modal="true" aria-labelledby="chat-title">
+  <header>
+    <span id="chat-title">Chat with Gemini</span>
+    <button id="close-chat" aria-label="Close chat">&times;</button>
+  </header>
+    <div id="faq-buttons">
+  <button class="faq-btn">What is CampusHub?</button>
+  <button class="faq-btn">How does CampusHub work?</button>
+  <button class="faq-btn">What is the revenue model of CampusHub?</button>
+  <button class="faq-btn">What is the aim of CampusHub?</button>
+</div>
+  <div id="chat-messages" role="log" aria-live="polite"></div>
+  <div id="chat-input-area">
+    <input type="text" id="user-input" placeholder="Ask me anything..." aria-label="Type your message" />
+    <button id="send-button">Send</button>
+  </div>
+</div>
+<script src="scripts/gemini.js"></script>
+
+ <!-- Firebase SDK -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyBl5qGCY-ERPYDaJoFFWikePF-JdMBq_g8",
+    authDomain: "campushub-aloks.firebaseapp.com",
+    projectId: "campushub-aloks",
+    storageBucket: "campushub-aloks.firebasestorage.app",
+    messagingSenderId: "559727198762",
+    appId: "1:559727198762:web:53ba952ad4d3397518b953",
+    measurementId: "G-L2JN36M5DD"
+  };
+
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+  const auth = firebase.auth();
+  const db = firebase.firestore();
+</script>
+
+<script>
+  // Cache the auth links containers
+  const desktopAuth = document.getElementById('desktop-auth-links');
+  const mobileAuth = document.getElementById('mobile-auth-links');
+
+  // Function to render navbar auth links based on user
+  function renderAuthLinks(user) {
+    if (user) {
+      const displayName = user.displayName || user.email || "User";
+
+      const signedInHTML = `
+        <span style="color:#00ffcc; font-weight:600; margin-right: 1rem;">Hi ${displayName}</span>
+        <a href="dashboard.html" style="font-weight:600; margin-right: 1rem; color:#ddd; text-decoration:none;">Dashboard</a>
+        <a href="#" id="signout-link" style="color:#ff4b4b; font-weight:600; cursor:pointer; text-decoration:none;">Sign Out</a>
+      `;
+
+      desktopAuth.innerHTML = signedInHTML;
+      mobileAuth.innerHTML = signedInHTML;
+
+      document.getElementById('signout-link').addEventListener('click', e => {
+        e.preventDefault();
+        auth.signOut().then(() => {
+          window.location.href = 'signin.html'; // Redirect after sign out
+        });
+      });
+
+    } else {
+      // Not signed in - show Sign In and Join buttons
+      const signedOutHTML = `
+        <a href="signin.html" class="btn-login">Sign In</a>
+        <a href="signup.html" class="btn-join">Join</a>
+      `;
+
+      desktopAuth.innerHTML = signedOutHTML;
+      mobileAuth.innerHTML = signedOutHTML;
+    }
+  }
+
+  // Listen for auth state changes
+  auth.onAuthStateChanged(user => {
+    renderAuthLinks(user);
+  });
+</script>
+
+</body>
+</html>

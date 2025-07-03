@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dashboard - CampusHub</title>
+  <link rel="icon" href="assets/favicon.png" type="image/png" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #121212;
+      color: white;
+      padding-top: 70px;
+      padding-bottom: 100px;
+    }
+
+    /* Navbar */
+    header.navbar {
+      background: #111;
+      color: white;
+      padding: 0.8rem 0rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #222;
+      flex-wrap: wrap;
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: white;
+      cursor: pointer;
+    }
+    .logo span {
+      color: #00ffcc;
+    }
+
+    nav.desktop-nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    nav.desktop-nav a {
+      color: #ddd;
+      text-decoration: none;
+      font-weight: 500;
+    }
+    nav.desktop-nav a:hover {
+      color: #00ffcc;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      width: 25px;
+      height: 3px;
+      background: #00ffcc;
+    }
+
+    nav.mobile-nav {
+      display: none;
+      flex-direction: column;
+      background: #111;
+      position: absolute;
+      top: 70px;
+      right: 1rem;
+      padding: 1rem 1.5rem;
+      border-radius: 8px;
+      z-index: 10;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    nav.mobile-nav a {
+      color: #ddd;
+      text-decoration: none;
+      padding: 0.5rem 0;
+      font-weight: 600;
+    }
+    nav.mobile-nav a:hover {
+      color: #00ffcc;
+    }
+
+    nav.mobile-nav.show {
+      display: flex;
+    }
+
+    @media (max-width: 768px) {
+      nav.desktop-nav {
+        display: none;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    /* Dashboard */
+    .dashboard {
+      max-width: 700px;
+      margin: 2rem auto;
+      background: #222;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 0 20px #00ffcc44;
+    }
+
+    h1 {
+      text-align: center;
+      color: #00ffcc;
+      margin-bottom: 1.5rem;
+    }
+
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: #00ffcc;
+      border: none;
+      color: #000;
+      font-weight: 600;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #00ccaa;
+    }
+
+    .listings {
+      margin-top: 2rem;
+    }
+
+    .listing-item {
+      background: #333;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .listing-item .title {
+      font-weight: 600;
+    }
+
+    .listing-actions {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .listing-actions button {
+      background: #555;
+      color: white;
+      font-size: 0.9rem;
+      padding: 6px 10px;
+    }
+
+    .logout-btn {
+      margin-top: 1rem;
+      width: 100%;
+      background: #ff4444;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header class="navbar">
+    <div class="logo" onclick="window.location.href='index.html'">Campus<span>Hub</span></div>
+
+    <nav class="desktop-nav">
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#" id="logoutNavBtn">Logout</a>
+    </nav>
+
+    <div class="menu-toggle" id="menu-toggle">
+      <span></span><span></span><span></span>
+    </div>
+
+    <nav class="mobile-nav" id="mobile-nav">
+      <a href="explore.html">Explore</a>
+      <a href="become-seller.html">Become a Seller</a>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="#" id="logoutNavBtnMobile">Logout</a>
+    </nav>
+  </header>
+
+  <!-- Dashboard Content -->
+  <div class="dashboard">
+    <h1>Your Dashboard</h1>
+    <label for="displayNameInput">Name</label>
+    <input type="text" id="displayNameInput" placeholder="Your Name" />
+    <button id="saveProfileBtn">Save Profile</button>
+
+    <div class="listings">
+      <h2>Your Listings</h2>
+      <div id="listingsContainer">Loading...</div>
+    </div>
+
+    <button class="logout-btn" id="logoutBtn">Logout</button>
+  </div>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyBl5qGCY-ERPYDaJoFFWikePF-JdMBq_g8",
+      authDomain: "campushub-aloks.firebaseapp.com",
+      projectId: "campushub-aloks",
+      storageBucket: "campushub-aloks.firebasestorage.app",
+      messagingSenderId: "559727198762",
+      appId: "1:559727198762:web:53ba952ad4d3397518b953",
+      measurementId: "G-L2JN36M5DD"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+    const db = firebase.firestore();
+
+    const displayNameInput = document.getElementById('displayNameInput');
+    const saveProfileBtn = document.getElementById('saveProfileBtn');
+    const listingsContainer = document.getElementById('listingsContainer');
+    const logoutBtn = document.getElementById('logoutBtn');
+
+    let currentUser = null;
+
+    auth.onAuthStateChanged(user => {
+      if (!user) return location.href = 'signin.html';
+      currentUser = user;
+      loadUserProfile();
+      loadUserListings();
+    });
+
+    async function loadUserProfile() {
+      const doc = await db.collection('users').doc(currentUser.uid).get();
+      if (doc.exists) {
+        displayNameInput.value = doc.data().name || '';
+      } else {
+        displayNameInput.value = currentUser.displayName || '';
+      }
+    }
+
+    async function loadUserListings() {
+      const snap = await db.collection('listings').where('ownerId', '==', currentUser.uid).get();
+      if (snap.empty) {
+        listingsContainer.innerHTML = '<p>No listings found.</p>';
+        return;
+      }
+
+      listingsContainer.innerHTML = '';
+      snap.forEach(doc => {
+        const data = doc.data();
+        const div = document.createElement('div');
+        div.classList.add('listing-item');
+        div.innerHTML = `
+          <span class="title">${data.title || 'Untitled Listing'}</span>
+          <div class="listing-actions">
+            <button onclick="editListing('${doc.id}')">Edit</button>
+            <button onclick="deleteListing('${doc.id}')">Delete</button>
+          </div>
+        `;
+        listingsContainer.appendChild(div);
+      });
+    }
+
+    saveProfileBtn.onclick = async () => {
+      const newName = displayNameInput.value.trim();
+      if (!newName) return alert('Name cannot be empty');
+      await currentUser.updateProfile({ displayName: newName });
+      await db.collection('users').doc(currentUser.uid).set({ name: newName }, { merge: true });
+      alert('Profile updated!');
+    };
+
+    logoutBtn.onclick = () => auth.signOut().then(() => location.href = 'signin.html');
+    document.getElementById('logoutNavBtn').onclick = logoutBtn.onclick;
+    document.getElementById('logoutNavBtnMobile').onclick = logoutBtn.onclick;
+
+    function editListing(id) {
+      alert('Edit functionality coming soon for: ' + id);
+    }
+
+    async function deleteListing(id) {
+      if (!confirm('Are you sure you want to delete this listing?')) return;
+      await db.collection('listings').doc(id).delete();
+      loadUserListings();
+    }
+
+    // Toggle mobile menu
+    const toggleBtn = document.getElementById('menu-toggle');
+    const mobileNav = document.getElementById('mobile-nav');
+
+    toggleBtn.onclick = (e) => {
+      e.stopPropagation();
+      mobileNav.classList.toggle('show');
+    };
+
+    document.addEventListener('click', (e) => {
+      if (!toggleBtn.contains(e.target) && !mobileNav.contains(e.target)) {
+        mobileNav.classList.remove('show');
+      }
+    });
+  </script>
+</body>
+</html>

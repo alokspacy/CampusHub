@@ -1,0 +1,121 @@
+<header class="navbar">
+  <div class="logo">
+    <a href="index.html" tabindex="0" aria-label="Go to CampusHub homepage">
+      Campus<span>Hub</span>
+    </a>
+  </div>
+  <div class="menu-toggle" onclick="toggleMenu()">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+  <nav>
+    <a href="explore.html">Explore</a>
+    <a href="about.html">About Us</a>
+    <a href="become-seller.html">Become a Seller</a>
+    <a href="signin.html" class="btn-login">Sign In</a>
+    <a href="signup.html" class="btn-join">Join</a>
+  </nav>
+  <div class="mobile-nav" id="mobile-nav">
+    <a href="explore.html">Explore</a>
+    <a href="become-seller.html">Become a Seller</a>
+    <a href="signin.html">Sign In</a>
+    <a href="signup.html">Join</a>
+  </div>
+</header>
+<style>
+  /* Navbar Styles */
+  .navbar {
+  background: white;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
+}
+  .navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .navbar .logo a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 1.5rem;
+  }
+
+  .navbar .logo span {
+    color: #019f7b;
+  }
+
+  .navbar nav {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .navbar nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .navbar nav a:hover {
+    text-decoration: underline;
+  }
+
+  .menu-toggle {
+    display: none; /* Hidden by default, shown on mobile */
+    flex-direction: column;
+    cursor: pointer;
+  }
+
+  .menu-toggle span {
+    width: 25px;
+    height: 3px;
+    background-color: #fff;
+    margin-bottom: 4px;
+  }
+
+  @media (max-width: 768px) {
+    .navbar nav {
+      display: none; /* Hide navigation links on mobile */
+      flex-direction: column;
+      position: absolute;
+      top: 60px; /* Adjust based on navbar height */
+      right: 0;
+      background-color: #333;
+      width: 100%;
+      padding: 1rem;
+      z-index: 1000; /* Ensure it appears above other content */
+    }
+
+    .navbar nav a {
+      margin-bottom: 0.5rem; /* Spacing between links */
+    }
+
+    .menu-toggle {
+      display: flex; /* Show menu toggle on mobile */
+    }
+    
+    .mobile-nav {
+      display: flex; /* Show mobile navigation links */
+      flex-direction: column;
+      gap: 0.5rem; /* Spacing between links */
+      position: absolute; /* Positioning for dropdown effect */
+      top: 60px; /* Adjust based on navbar height */
+      right: 0; /* Align to the right of the screen */
+      background-color: #333; /* Same background as navbar */
+      padding: 1rem; /* Padding for better touch targets */
+      z-index: 1000; /* Ensure it appears above other content */
+    }
+    
+        .mobile-nav a {
+          color: #fff; /* Ensure links are visible */
+          text-decoration: none; /* Remove underline */
+          font-weight: bold; /* Make links bold */
+        }
+      }
+    </style>
