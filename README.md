@@ -53,4 +53,5 @@ Enhance chatbot with contextual recommendations
 And also many more things this is just a prototype.
 
 **🔗 Live Demo**
-👉 [[Visit CampusHub](https://campushub-alok.vercel.app/)](Hosted on Vercel)
+
+### **👉 [Visit CampusHub](https://campushub-alok.vercel.app/) (Hosted on Vercel)**
