@@ -2,7 +2,7 @@
 **🏫 CampusHub — Student-to-Student Marketplace**
 CampusHub is a web-based platform that enables college students to buy, sell, and exchange services or products within their academic community. Built with HTML, CSS, JS, Firebase Authentication, and Firestore, it offers a seamless experience for student freelancers and buyers.
 
-<h3 style="color:#00ffcc; font-weight:bold;">This is just a Prototype</h3>
+![Prototype](https://img.shields.io/badge/status-prototype-blue)
 
 **🔑 Features**
 
