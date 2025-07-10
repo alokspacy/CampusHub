@@ -34,16 +34,19 @@ class Particle {
     if (this.alpha < 0) this.alpha = 0;
   }
 
-  draw() {
-    ctx.save();
-    ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = "rgba(0, 255, 128, 0.8)"; 
-    ctx.beginPath();
-    ctx.ellipse(this.x - this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
-    ctx.ellipse(this.x + this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
-    ctx.fill();
-    ctx.restore();
-  }
+ draw() {
+  ctx.save();
+  ctx.globalAlpha = this.alpha;
+  ctx.fillStyle = "rgba(255, 255, 255, 0.9)"; // Starry white
+  ctx.shadowColor = "rgba(200, 200, 255, 0.6)"; // Light bluish glow
+  ctx.shadowBlur = 4;
+
+  ctx.beginPath();
+  ctx.ellipse(this.x - this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
+  ctx.ellipse(this.x + this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
+  ctx.fill();
+  ctx.restore();
+}
 }
 
 window.addEventListener('mousemove', (e) => {
