@@ -2,6 +2,7 @@ const canvas = document.getElementById('cursor-canvas');
 const ctx = canvas.getContext('2d');
 
 let particles = [];
+let moveCount = 0; // to throttle particle creation
 
 function resizeCanvas() {
   canvas.width = window.innerWidth;
@@ -14,10 +15,10 @@ class Particle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 5 + 5;
-    this.life = 200; // lasts longer
+    this.size = Math.random() * 6 + 6;
+    this.life = 300; // lasts longer
     this.angle = Math.random() * Math.PI * 2;
-    this.speed = 0.2 + Math.random() * 0.3; // slower speed
+    this.speed = 0.05 + Math.random() * 0.1; // very slow
     this.alpha = 1;
   }
 
@@ -25,10 +26,10 @@ class Particle {
     this.x += Math.cos(this.angle) * this.speed;
     this.y += Math.sin(this.angle) * this.speed;
 
-    this.angle += 0.05 * (Math.sin(this.life * 0.1));
+    this.angle += 0.02 * Math.sin(this.life * 0.05);
 
-    this.size *= 0.98;
-    this.alpha -= 0.004; // slower fade
+    this.size *= 0.99;
+    this.alpha -= 0.002; // very slow fade
     this.life--;
 
     if (this.alpha < 0) this.alpha = 0;
@@ -38,7 +39,7 @@ class Particle {
     ctx.save();
     ctx.globalAlpha = this.alpha;
     ctx.fillStyle = "rgba(255, 255, 255, 0.9)"; // Starry white
-    ctx.shadowColor = "rgba(200, 200, 255, 0.6)";
+    ctx.shadowColor = "rgba(200, 200, 255, 0.5)";
     ctx.shadowBlur = 4;
 
     ctx.beginPath();
@@ -50,7 +51,8 @@ class Particle {
 }
 
 window.addEventListener('mousemove', (e) => {
-  for (let i = 0; i < 1; i++) { // fewer particles
+  moveCount++;
+  if (moveCount % 3 === 0) { // only emit every 3rd movement event
     particles.push(new Particle(e.clientX, e.clientY));
   }
 });
