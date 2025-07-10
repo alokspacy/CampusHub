@@ -14,10 +14,10 @@ class Particle {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-    this.size = Math.random() * 5 + 5; 
-    this.life = 120;
-    this.angle = Math.random() * Math.PI * 2; 
-    this.speed = 0.3 + Math.random() * 0.5; 
+    this.size = Math.random() * 5 + 5;
+    this.life = 200; // lasts longer
+    this.angle = Math.random() * Math.PI * 2;
+    this.speed = 0.2 + Math.random() * 0.3; // slower speed
     this.alpha = 1;
   }
 
@@ -25,32 +25,32 @@ class Particle {
     this.x += Math.cos(this.angle) * this.speed;
     this.y += Math.sin(this.angle) * this.speed;
 
-    this.angle += 0.05 * (Math.sin(this.life * 0.1)); 
+    this.angle += 0.05 * (Math.sin(this.life * 0.1));
 
-    this.size *= 0.97;
-    this.alpha -= 0.008;
+    this.size *= 0.98;
+    this.alpha -= 0.004; // slower fade
     this.life--;
 
     if (this.alpha < 0) this.alpha = 0;
   }
 
- draw() {
-  ctx.save();
-  ctx.globalAlpha = this.alpha;
-  ctx.fillStyle = "rgba(255, 255, 255, 0.9)"; // Starry white
-  ctx.shadowColor = "rgba(200, 200, 255, 0.6)"; // Light bluish glow
-  ctx.shadowBlur = 4;
+  draw() {
+    ctx.save();
+    ctx.globalAlpha = this.alpha;
+    ctx.fillStyle = "rgba(255, 255, 255, 0.9)"; // Starry white
+    ctx.shadowColor = "rgba(200, 200, 255, 0.6)";
+    ctx.shadowBlur = 4;
 
-  ctx.beginPath();
-  ctx.ellipse(this.x - this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
-  ctx.ellipse(this.x + this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
-  ctx.fill();
-  ctx.restore();
-}
+    ctx.beginPath();
+    ctx.ellipse(this.x - this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
+    ctx.ellipse(this.x + this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
 }
 
 window.addEventListener('mousemove', (e) => {
-  for(let i = 0; i < 2; i++) {
+  for (let i = 0; i < 1; i++) { // fewer particles
     particles.push(new Particle(e.clientX, e.clientY));
   }
 });
