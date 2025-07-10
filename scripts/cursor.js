@@ -37,7 +37,7 @@ class Particle {
   draw() {
     ctx.save();
     ctx.globalAlpha = this.alpha;
-    ctx.fillStyle = `#ffffff`; 
+    ctx.fillStyle = "rgba(0, 255, 128, 0.8)"; 
     ctx.beginPath();
     ctx.ellipse(this.x - this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
     ctx.ellipse(this.x + this.size / 2, this.y, this.size / 2, this.size, 0, 0, Math.PI * 2);
